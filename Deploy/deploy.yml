@@ -1,0 +1,21 @@
+variables:
+  ArtifactDirectory: '$(System.DefaultWorkingDirectory)/_onsachin.ConnectInfra/drop'
+  AppName: 'WebApiOne'
+  Environment: 'Development'
+
+#Your build pipeline references an undefined variable named ‘ArtifactDirectory’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+#Your build pipeline references an undefined variable named ‘ArtifactDirectory’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+
+steps:
+  - bash: |
+      # Write your commands here
+      echo -e "Sachin@123@123\n" | sudo -S apt install unzip
+      #echo -e "Sachin@123@123\n" | sudo -S mkdir /var/www/DemoApi1
+      echo -e "Sachin@123@123\n" | sudo -S unzip -o $(ArtifactDirectory)/DemoApi1.Log.zip -d /var/www/DemoApi1
+      #echo -e "Sachin@123@123\n" | sudo -S systemctl revert DemoApi1.service
+      #echo -e "Sachin@123@123\n" | sudo -S bash $(ArtifactDirectory)/Deploy/app1log.sh DemoApi1
+      #echo -e "Sachin@123@123\n" | sudo -S  systemctl restart DemoApi1.service
+      
+      # Connect.Development.service 
+    displayName: 'Bash Script'
+
