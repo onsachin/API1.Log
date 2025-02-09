@@ -12,7 +12,7 @@ Description=.NET Web AppLog 1 API
 
 [Service]
 WorkingDirectory=/var/www/WebApiOne
-ExecStart=/snap/bin/dotnet /var/www/WebApiOne/WebApiOne.dll --urls=http://localhost:5050
+ExecStart=/snap/bin/dotnet /var/www/WebApiOne/WebApiOne.Api.dll --urls=http://localhost:5050
 Restart=always
 # Restart service after 10 seconds if the dotnet service crashes:
 RestartSec=10 
