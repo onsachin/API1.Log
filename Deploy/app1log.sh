@@ -1,7 +1,7 @@
 
 #!/bin/bash
-file_path="/var/www/ConnectInfra"
-service_path="/etc/systemd/system/$1.service"
+file_path="/var/www/DemoApi1"
+service_path="/etc/systemd/system/DemoApi1.service"
 if [ -f "$service_path" ]
 then
   echo "Service file already exists"
@@ -18,7 +18,7 @@ Restart=always
 RestartSec=10 
 KillSignal=SIGINT
 SyslogIdentifier=DemoApi1.service
-User=root
+User=onsachin
 Environment=ASPNETCORE_ENVIRONMENT=Development
 
 [Install]
