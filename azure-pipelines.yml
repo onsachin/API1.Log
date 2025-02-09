@@ -82,4 +82,37 @@ steps:
 #     script: |
 #       # Write your commands here  
 #       echo -e "Sachin@123\n" | sudo -S bash /azagent/run.sh
-          
+
+
+
+#-------------------------------Deployments------------------
+jobs :
+- deployment: VMDeploy
+  displayName: WebAPIOne
+  environment:
+    name: 'LinuxVMEnv'
+    resourceType: VirtualMachine
+    tags: 'WebApiOne'
+  strategy:
+      rolling:
+        maxParallel: 2  #for percentages, mention as x%
+        preDeploy:
+          steps:
+          - download: current
+            artifact: drop
+          - script: echo initialize, cleanup, backup, install certs
+        deploy:
+          steps:
+          - task: Bash@3
+            inputs:
+              targetType: 'inline'
+              script: |
+                # Modify deployment script based on the app type
+                #echo "Starting deployment script run"
+                #sudo java -jar '$(Pipeline.Workspace)/drop/**/target/*.jar'
+                  echo -e "Sachin@123@123\n" | sudo -S apt install unzip
+                #echo -e "Sachin@123@123\n" | sudo -S mkdir /var/www/DemoApi1
+                  echo -e "Sachin@123@123\n" | sudo -S unzip -o $(ArtifactDirectory)/DemoApi1.Log.zip -d /var/www/DemoApi1
+                #echo -e "Sachin@123@123\n" | sudo -S systemctl revert DemoApi1.service
+                #echo -e "Sachin@123@123\n" | sudo -S bash $(ArtifactDirectory)/Deploy/app1log.sh DemoApi1
+                #echo -e "Sachin@123@123\n" | sudo -S  systemctl restart DemoApi1.service
