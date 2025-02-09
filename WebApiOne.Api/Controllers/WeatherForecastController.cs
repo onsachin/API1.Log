@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace DemoApi1.Log.Controllers;
+namespace WebApiOne.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]

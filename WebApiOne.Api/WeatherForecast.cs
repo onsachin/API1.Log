@@ -1,4 +1,4 @@
-namespace DemoApi1.Log;
+namespace WebApiOne.Api;
 
 public class WeatherForecast
 {

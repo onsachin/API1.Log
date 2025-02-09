@@ -1,0 +1,74 @@
+Index: DemoApi1.Log/Program.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>namespace DemoApi1.Log;\n\npublic class Program\n{\n    public static void Main(string[] args)\n    {\n        var builder = WebApplication.CreateBuilder(args);\n\n        // Add services to the container.\n\n        builder.Services.AddControllers();\n        // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi\n        builder.Services.AddOpenApi();\n\n        var app = builder.Build();\n\n        // Configure the HTTP request pipeline.\n        if (app.Environment.IsDevelopment())\n        {\n            app.MapOpenApi();\n        }\n\n        app.UseHttpsRedirection();\n\n        app.UseAuthorization();\n\n\n        app.MapControllers();\n\n        app.Run();\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/DemoApi1.Log/Program.cs b/DemoApi1.Log/Program.cs
+--- a/DemoApi1.Log/Program.cs	(revision 5c2ccc285be051a2127411e762c8611124e23d34)
++++ b/DemoApi1.Log/Program.cs	(date 1739095647920)
+@@ -20,7 +20,7 @@
+             app.MapOpenApi();
+         }
+ 
+-        app.UseHttpsRedirection();
++        //app.UseHttpsRedirection();
+ 
+         app.UseAuthorization();
+ 
+Index: DemoApi1.Log/Properties/launchSettings.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\n  \"$schema\": \"https://json.schemastore.org/launchsettings.json\",\n  \"profiles\": {\n    \"http\": {\n      \"commandName\": \"Project\",\n      \"dotnetRunMessages\": true,\n      \"launchBrowser\": false,\n      \"applicationUrl\": \"http://localhost:5002\",\n      \"environmentVariables\": {\n        \"ASPNETCORE_ENVIRONMENT\": \"Development\"\n      }\n    },\n    \"https\": {\n      \"commandName\": \"Project\",\n      \"dotnetRunMessages\": true,\n      \"launchBrowser\": false,\n      \"applicationUrl\": \"https://localhost:7050;http://localhost:5002\",\n      \"environmentVariables\": {\n        \"ASPNETCORE_ENVIRONMENT\": \"Development\"\n      }\n    }\n  }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/DemoApi1.Log/Properties/launchSettings.json b/DemoApi1.Log/Properties/launchSettings.json
+--- a/DemoApi1.Log/Properties/launchSettings.json	(revision 5c2ccc285be051a2127411e762c8611124e23d34)
++++ b/DemoApi1.Log/Properties/launchSettings.json	(date 1739095647810)
+@@ -5,7 +5,7 @@
+       "commandName": "Project",
+       "dotnetRunMessages": true,
+       "launchBrowser": false,
+-      "applicationUrl": "http://localhost:5002",
++      "applicationUrl": "http://localhost:5050",
+       "environmentVariables": {
+         "ASPNETCORE_ENVIRONMENT": "Development"
+       }
+@@ -14,7 +14,7 @@
+       "commandName": "Project",
+       "dotnetRunMessages": true,
+       "launchBrowser": false,
+-      "applicationUrl": "https://localhost:7050;http://localhost:5002",
++      "applicationUrl": "https://localhost:7050;http://localhost:5050",
+       "environmentVariables": {
+         "ASPNETCORE_ENVIRONMENT": "Development"
+       }
+Index: Deploy/app1log.sh
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Deploy/app1log.sh b/Deploy/app1log.sh
+--- a/Deploy/app1log.sh	(revision 5c2ccc285be051a2127411e762c8611124e23d34)
++++ b/Deploy/app1log.sh	(date 1739096655296)
+@@ -1,0 +1,17 @@
++[Unit]
++Description=Example .NET Web API App running on Linux
++
++[Service]
++WorkingDirectory=/var/www/DemoApi1
++ExecStart=/snap/bin/dotnet /var/www/AppLog/DemoApi1.Log.dll --urls=http://localhost:5050
++Restart=always
++# Restart service after 10 seconds if the dotnet service crashes:
++RestartSec=10
++KillSignal=SIGINT
++SyslogIdentifier=DemoApi1.Service
++User=root
++Environment=ASPNETCORE_ENVIRONMENT=Development
++Environment=DOTNET_NOLOGO=true
++
++[Install]
++WantedBy=multi-user.target
+\ No newline at end of file

@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApi1.Log", "DemoApi1.Log\DemoApi1.Log.csproj", "{E2096EF4-C5DB-4F73-BFB2-47B6C60A2BC7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiOne.Api", "WebApiOne.Api\WebApiOne.Api.csproj", "{E2096EF4-C5DB-4F73-BFB2-47B6C60A2BC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
