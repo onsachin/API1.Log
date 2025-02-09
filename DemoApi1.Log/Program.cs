@@ -1,4 +1,3 @@
-
 namespace DemoApi1.Log;
 
 public class Program
