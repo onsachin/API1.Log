@@ -1,0 +1,85 @@
+#trigger: 
+ #- dev
+
+trigger:
+  branches:
+    include:
+      - main
+
+
+pool:
+  name: AppLogPool
+  timeoutInMinutes: 15
+
+# variables:
+#   name : projects
+#   value: '**/*.csproj'
+
+steps:
+- task: UseDotNet@2
+  displayName: 'Use .NET Core sdk 9.x'
+  inputs:
+    version: 9.x
+
+- task: DotNetCoreCLI@2
+  displayName: Restore
+  inputs:
+    command: restore
+    projects: '**/*.csproj'
+    #projects: '$(projects)'
+
+- task: DotNetCoreCLI@2
+  displayName: Build
+  inputs:
+    projects: '**/*.csproj'
+    #projects: '$(projects)'
+    arguments: '--configuration $(BuildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: Test
+  inputs:
+    command: test
+    projects: '**/*.csproj'
+    #projects: '$(Parameters.TestProjects)'
+    arguments: '--configuration $(BuildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: Publish
+  inputs:
+    command: publish
+    publishWebProjects: True
+    arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
+    zipAfterPublish: True
+
+#Commented for linux deployment/ Uncomment for windows
+# - task: PublishBuildArtifacts@1
+#   displayName: 'Publish Artifact'
+#   inputs:
+#     PathtoPublish: '$(build.artifactstagingdirectory)'
+#   condition: succeededOrFailed()
+
+#Below line is for deploying into linux VM
+
+- task : CopyFiles@2
+  displayName : CopyScripts
+  inputs:
+     #SourceFolder: 'Connect.Web/Deploy'
+     SourceFolder: '$(build.sourcesdirectory)/Deploy'
+     Contents: '**'
+     TargetFolder: '$(build.artifactstagingdirectory)/Deploy'
+     CleanTargetFolder: true
+- task : PublishBuildArtifacts@1
+  displayName: 'Publish Artifacts'
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
+    ArtifactName: 'drop'
+    publishLocation: Container
+
+# - task: Bash@3
+#   displayName: 'Start Deploment Agent'
+#   inputs:
+#     targetType: 'inline'
+#     script: |
+#       # Write your commands here  
+#       echo -e "Sachin@123\n" | sudo -S bash /azagent/run.sh
+          
