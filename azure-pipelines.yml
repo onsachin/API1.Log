@@ -8,7 +8,7 @@ trigger:
 
 
 pool:
-  name: AppLogAgent
+  name: app-log-pool
   timeoutInMinutes: 15
 
 # variables:
