@@ -81,7 +81,7 @@ steps:
     targetType: 'inline'
     script: |
       # Write your commands here  
-      echo -e "Sachin@123@123\n" | sudo -S bash /azagent/run.sh
+      echo -e "Sachin@123@123\n" | sudo -S bash $(build.artifactstagingdirectory)/Deploy/webapione.sh
 
 
 
