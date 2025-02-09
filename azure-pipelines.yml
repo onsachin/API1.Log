@@ -83,7 +83,7 @@ steps:
       # Write your commands here  
         echo -e "Sachin@123@123\n" | sudo -S apt install unzip
       #echo -e "Sachin@123@123\n" | sudo -S mkdir /var/www/DemoApi1
-        echo -e "Sachin@123@123\n" | sudo -S unzip -o $(ArtifactDirectory)/WebApiOne.Api.zip -d /var/www/WebApiOne
+        echo -e "Sachin@123@123\n" | sudo -S unzip -o $(build.artifactstagingdirectory)/WebApiOne.Api.zip -d /var/www/WebApiOne
       #echo -e "Sachin@123@123\n" | sudo -S systemctl revert DemoApi1.service
         echo -e "Sachin@123@123\n" | sudo -S bash $(build.artifactstagingdirectory)/Deploy/webapione.sh WebApiOne
         echo -e "Sachin@123@123\n" | sudo -S  systemctl restart WebApiOne.service
