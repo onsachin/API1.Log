@@ -4,7 +4,7 @@ namespace WebApiOne.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class WeatherForecastController : ControllerBase
+public class LogsController : ControllerBase
 {
     private static readonly string[] Summaries = new[]
     {
