@@ -1,4 +1,7 @@
+using System.ComponentModel;
 using Microsoft.Azure.Cosmos;
+using Container = Microsoft.Azure.Cosmos.Container;
+
 namespace WebApiOne.Api.Operations;
 
 public class OperationHandler<T> : IOperationHandler<T> where T : CommonEntity
@@ -7,6 +10,7 @@ public class OperationHandler<T> : IOperationHandler<T> where T : CommonEntity
 
     private const string connectionString =
         "AccountEndpoint=https://onsachin-cosmosdb.documents.azure.com:443/;AccountKey=jK74PeYRLaPKJ5vlrXgT79384fZgM040mKqq2xrDqO6a61hjjhY7EIMgvRQHN9xHPLY5bkdGnijwACDbwC1dRg==;";
+
     private Task<CosmosClient> CreateCosmosClient()
     {
         // var client = new SecretClient(new Uri(KeyVaultUri), new DefaultAzureCredential());
@@ -21,12 +25,13 @@ public class OperationHandler<T> : IOperationHandler<T> where T : CommonEntity
         // {
         //     return new CosmosClient(connectionString);
         // }
-        
+
         return Task.FromResult(new CosmosClient(connectionString));
     }
+
     public async Task<T> GetByIdAsync(T entity)
     {
-        if(entity == null)
+        if (entity == null)
             throw new ArgumentNullException(nameof(entity));
         var type = entity as CommonEntity;
         var container = await GetContainer(typeof(T).Name);
@@ -59,13 +64,14 @@ public class OperationHandler<T> : IOperationHandler<T> where T : CommonEntity
             FeedResponse<T> response = await results.ReadNextAsync();
             return response.Resource.ToList();
         }
+
         return new List<T>();
     }
 
     public async Task<IList<T>> GetAllAsync()
     {
         var container = await GetContainer(typeof(T).Name);
-        FeedResponse<T> response = await container.ReadManyItemsAsync<T>(items:null);
+        FeedResponse<T> response = await container.ReadManyItemsAsync<T>(items: null);
         return response.Resource.ToList();
     }
 
@@ -108,8 +114,8 @@ public class OperationHandler<T> : IOperationHandler<T> where T : CommonEntity
         string databaseName = "APILogAnalytics";
         var client = await CreateCosmosClient();
         var foundDatabase = client.GetDatabase(databaseName);
-      // if (foundDatabase != null)
-          // return foundDatabase;
+        // if (foundDatabase != null)
+        // return foundDatabase;
         DatabaseResponse response = await client.CreateDatabaseIfNotExistsAsync(databaseName);
         return response.Database;
 
@@ -119,11 +125,11 @@ public class OperationHandler<T> : IOperationHandler<T> where T : CommonEntity
     {
         var client = await CreateCosmosClient();
         var foundContainer = client.GetContainer("APILogs", id);
-      // if (foundContainer!= null)
-       //    return foundContainer;
-        
+        // if (foundContainer!= null)
+        //    return foundContainer;
+
         var database = await GetDatabase();
-        var container = await database.CreateContainerIfNotExistsAsync(id:id, "/partitionKey");
+        var container = await database.CreateContainerIfNotExistsAsync(id: id, "/partitionKey");
         return container.Container;
     }
 }
