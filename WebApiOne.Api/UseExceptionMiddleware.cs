@@ -21,6 +21,7 @@ public class UseExceptionMiddleware
         {
             var entity = new LogEntity
             {
+                PartitionKey = exception.Source,
                 Path = context.Request.Path.Value,
                 StatusCode = context.Response.StatusCode,
                 UserId = context.User.Identity.IsAuthenticated ? context.User.Identity?.Name : "User not authenticated",

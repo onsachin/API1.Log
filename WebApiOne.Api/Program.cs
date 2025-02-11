@@ -44,6 +44,12 @@ public class Program
             throw new NullReferenceException();
             
         });
+        app.MapGet("log/getlogs", async (IOperationHandler<LogEntity> logOperaton) =>
+        {
+            string sqlQueryText = $"SELECT * FROM c ";
+            var getuser = await logOperaton.GetByQueryAsync(sqlQueryText);
+            return Results.Ok(getuser);
+        });
         
         app.UseAuthorization();
 
