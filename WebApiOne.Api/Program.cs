@@ -48,7 +48,18 @@ public class Program
         {
             string sqlQueryText = $"SELECT * FROM c ";
             var getuser = await logOperaton.GetByQueryAsync(sqlQueryText);
-            return Results.Ok(getuser);
+            
+            return Results.Ok(getuser.Select(m =>
+            new {
+                
+                Message = m.Message,
+                LongMessage = m.LongMessage,
+                Path = m.Path,
+                Source = m.Source,
+                UserId = m.UserId,
+                StausCode = m.StatusCode,
+                CreatedDate = m.CreateDate
+            }));
         });
         
         app.UseAuthorization();
